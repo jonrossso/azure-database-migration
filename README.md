@@ -1,6 +1,10 @@
 # Azure Database Migration Project
 
-The goal of the entire project however is to undertake the design and implementation of a cloud-based database system on the Microsoft Azure platform, showcasing my expertise in cloud engineering. This project started off with setting up a GitHub repository (azure-database-migration562) and Azure environment. I connected to a Virtual Machine successfully through a windows remote desktop connection and created the production database. I have now progressed to successfully migrate the local database to Azure SQL Database, making use of Azure Data Studio. I had to carefully plan, execute and use validation dutring the migration process to ensure data integrity.
+The goal of the entire project however is to undertake the design and implementation of a cloud-based database system on the Microsoft Azure platform, showcasing my expertise in cloud engineering. This project started off with setting up a GitHub repository (azure-database-migration562) and Azure environment. I connected to a Virtual Machine successfully through a windows remote desktop connection and created the production database. 
+
+I have now progressed to successfully migrate the local database to Azure SQL Database, making use of Azure Data Studio. I had to carefully plan, execute and use validation dutring the migration process to ensure data integrity.
+
+I have now secured the data with backups and established a development database to ensure that the production evironment's data integrity is not compromised during development/testing.
 
 ## Milestone 1 and Milestone 2: Initial Setup / Configuration
 
@@ -18,7 +22,7 @@ Utilising the RDP protocol, I have established a secure connection to the Azure 
 
 ### Production Database Setup
 
-To replicate a production-like scenario, I have downloaded the AdventureWorks backup file (AdventureWorks2022.bak), ensuring it resides in the backup "Program Files" location: C:\Program Files\Microsoft SQL Server\MSSQL16.SSQLSERVER\MSSQL\Backup\AdventureWorks2022.bak. 
+To replicate a production-like scenario, I have downloaded the AdventureWorks backup file (AdventureWorks2022.bak), ensuring it resides in the backup "Program Files" location: C:\Program Files\Microsoft SQL Server\MSSQL16.SSQLSERVER\MSSQL\Backup\AdventureWorks2022.bak.
 
 Subsequently, I also successfully restored the AdventureWorks database on the Azure VM.
 
@@ -46,7 +50,7 @@ Upon connecting to both databases, I installed the SQL Server Schema Compare ext
 
 ### Task 5: Data Migration
 
-With the schema successfully migrated, the next step was to move the data. I used the Azure SQL Migration extension to seamlessly handle the data transfer process. 
+With the schema successfully migrated, the next step was to move the data. I used the Azure SQL Migration extension to seamlessly handle the data transfer process.
 
 ### Task 6: Validate Migration Success
 
@@ -59,3 +63,25 @@ To verify the migration's success, I conducted a thorough validation of the data
 ### Local Data (Example Query)
 
 ![Local Data](screenshots/local_database_sample_query_screenshot.png)
+
+## Milestone 4: Data Backup and Restore
+
+ The focus here was to ensure the safety of the data stored in the production database making use of the distinction between production and development environments. Now that I have created a development database, I can experiment changes without risking the integrity of the main production data.
+
+### Task 1: Backup the On-Premise Database
+
+A full backup of the production database, "production-database", was successfully created from the Windows VM, "production-vm". The backup file was stored securely at "C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Backup" on the VM.
+
+### Task 2: Upload Backup to Blob Storage
+
+An Azure Blob Storage account, "developmentstorage562", was configured to serve as the online repository for the database backups. The backup file was then uploaded to the Blob Storage container, "development-container-1".
+
+### Task 3: Restore Database on Development Environment
+
+A new Windows VM, "development-vm", was created to simulate the development environment. SQL Server was then installed and the backup from the production environment was restored onto this VM.
+
+### Task 4: Automate Backups for Development Database
+
+![Maintenance Plan Wizard for Weekly Backups](screenshots/maintenance_plan_wizard.png)
+
+Within the development environment, SSMS was used to set up an automated weekly backup system by using a management task to perform weekly backups. These backups are stored at "https://developmentstorage562.blob.core.windows.net/development-container-1", ensuring that it could be restored at anytime necessary.
