@@ -85,3 +85,29 @@ A new Windows VM, "development-vm", was created to simulate the development envi
 ![Maintenance Plan Wizard for Weekly Backups](screenshots/maintenance_plan_wizard.png)
 
 Within the development environment, SSMS was used to set up an automated weekly backup system by using a management task to perform weekly backups. These backups are stored at "https://developmentstorage562.blob.core.windows.net/development-container-1", ensuring that it could be restored at anytime necessary.
+
+## Milestone 5: Disaster Recovery Simulation
+
+In milestone 5, I tested the quality of the data backup and restore procedure for the production environment hosted on Azure by simlulating an accidental deletion of important data.
+
+### Task 1: Mimic Data Loss in Production Environment
+
+I began by removing critical data from the production database (110 rows).
+
+![Deleting Rows](screenshots/deleting_rows.png)
+
+Below is the total number of rows before and after deleting rows from a table called Person.EmailAddress:
+
+#### Before Deletion
+
+![Before deletion](screenshots/before_deletion.png)
+
+#### After Deletion
+
+![After deletion](screenshots/after_deletion.png)
+
+### Task 2: Restore Database from Azure SQL Database Backup
+
+The simulated data loss removed the top 110 entries, creating a simulated disaster scenario. In order to rectify this and retrieve the lost data, the SQL database was restored using Point-in-Time recovery in Azure to revert it to a backup state from 12 hours ago. The total number of rows went back to the original 19,972 rows:
+
+![After Restoration](screenshots/after_restoration.png)
