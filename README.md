@@ -18,7 +18,7 @@ I have now secured the data with backups and established a development database 
 
 ### Establishment of Remote Desktop Connection
 
-Utilising the RDP protocol, I have established a secure connection to the Azure VM via Microsoft Remote Desktop. This connection provides remote access for system management and configuration.
+Utilising the RDP protocol, I established a secure connection to the Azure VM via Microsoft Remote Desktop.
 
 ### Production Database Setup
 
@@ -50,7 +50,7 @@ Upon connecting to both databases, I installed the SQL Server Schema Compare ext
 
 ### Task 5: Data Migration
 
-With the schema successfully migrated, the next step was to move the data. I used the Azure SQL Migration extension to seamlessly handle the data transfer process.
+With the schema successfully migrated, the next step was to move the data. I used the Azure SQL Migration extension to handle the data transfer process.
 
 ### Task 6: Validate Migration Success
 
@@ -111,3 +111,31 @@ Below is the total number of rows before and after deleting rows from a table ca
 The simulated data loss removed the top 110 entries, creating a simulated disaster scenario. In order to rectify this and retrieve the lost data, the SQL database was restored using Point-in-Time recovery in Azure to revert it to a backup state from 12 hours ago. The total number of rows went back to the original 19,972 rows:
 
 ![After Restoration](screenshots/after_restoration.png)
+
+## Milestone 6: Geo-Replication and Failover
+
+In milestone 6, I set up Azure SQL Database geo-replication and conducted failover tests which ensures availability through a secondary database in a different region (located in the US) for the purpose of simulating a real-world disruption.
+
+### Task 1: Set Up Geo-Replication for Azure SQL Database
+
+I established a replica of the primary database (production-database) on a separate SQL server (production-replication-server). This server is strategically located in a different geographical region (South Central US).
+
+### Task 2: Test Failover and Tailback
+
+In task 2, a planned failover to the secondary region in the US was executed, followed by a tailback to the primary region in the UK.
+
+#### Failover
+
+![Failover](screenshots/failover.png)
+
+#### Tailback
+
+![Tailback](screenshots/tailback.png)
+
+#### Failover Progress
+
+![Failover Progress](screenshots/failover_progress.png)
+
+#### Failover Success
+
+![Failover Success](screenshots/failover_success.png)
