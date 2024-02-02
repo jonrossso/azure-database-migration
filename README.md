@@ -1,10 +1,10 @@
 # Azure Database Migration Project
 
-The goal of the entire project however is to undertake the design and implementation of a cloud-based database system on the Microsoft Azure platform, showcasing my expertise in cloud engineering. This project started off with setting up a GitHub repository (azure-database-migration562) and Azure environment. I connected to a Virtual Machine successfully through a windows remote desktop connection and created the production database. 
+The main goal of this project was to design and implement a cloud-based database system on the Microsoft Azure platform. I started it off by setting up a GitHub repository (azure-database-migration562) and an Azure environment, followed by connecting to a Virtual Machine via Windows Remote Desktop and creating a production database.
 
-I have now progressed to successfully migrate the local database to Azure SQL Database, making use of Azure Data Studio. I had to carefully plan, execute and use validation dutring the migration process to ensure data integrity.
+I successfully migrated a local database to Azure, ensuring data integrity throughout the process with careful planning and validation. The additional milestones focused on securing data through backups and establishing a development database, allowing for safe testing without compromising the main production data.
 
-I have now secured the data with backups and established a development database to ensure that the production evironment's data integrity is not compromised during development/testing.
+Further progress involved simulating disaster recovery scenarios, setting up geo-replication for enhanced data resilience, and integrating Microsoft Entra ID for improved security.
 
 ## Milestone 1 and Milestone 2: Initial Setup / Configuration
 
@@ -139,3 +139,31 @@ In task 2, a planned failover to the secondary region in the US was executed, fo
 #### Failover Success
 
 ![Failover Success](screenshots/failover_success.png)
+
+## Milestone 7: Microsoft Entra Directory Integration
+
+In milestone 7, I integrated Microsoft Entra ID with my Azure SQL Database setup. After that, I created a read-only user, named "database_reader" in Azure Data Studio, using a specific SQL query to assign them the read-only status:
+
+![SQL query](screenshots/sql_query.png)
+
+Next, I connected to my production database using Azure Data Studio and the credentials of the new Database_Reader Entra user:
+
+![Database_Reader Sign-in](screenshots/database_reader_sign_in.png)
+
+![Database_Reader Signed-in](screenshots/database_reader_signed_in.png)
+
+#### Testing "Non-Read" Permissions:
+
+![Delete Permission Denied](screenshots/delete_permission_denied.png)
+
+## Azure UML Diagram
+
+![Azure UML Diagram](screenshots/UML.png)
+
+## Gained Knowledge and Reflections
+
+- I have understood even clearer cloud database migrations in Azure, including transferring schema and data.
+- The crucial role of regular backups and effective restoration in securing data.
+- Simulating and managing disaster recovery scenarios to maintain data integrity and availability.
+- The benefits of geo-replication for data protection and minimising downtime during disruptions.
+- Implementing Microsoft Entra Directory to secure database access management.
